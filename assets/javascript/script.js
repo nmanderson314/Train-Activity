@@ -1,84 +1,84 @@
 var config = {
-    apiKey: "AIzaSyCP3n4E7NTid9V9ok9LbRQ23AX70C_vf8M",
-    authDomain: "first-firebase-fc195.firebaseapp.com",
-    databaseURL: "https://first-firebase-fc195.firebaseio.com",
-    projectId: "first-firebase-fc195",
-    storageBucket: "first-firebase-fc195.appspot.com",
-    messagingSenderId: "487913696932"
+    apiKey: "AIzaSyBr1fw3W2az2DPJxeWHDnefmqdEMhZ18bc",
+    authDomain: "train-hw-358ee.firebaseapp.com",
+    databaseURL: "https://train-hw-358ee.firebaseio.com",
+    projectId: "train-hw-358ee",
+    storageBucket: "train-hw-358ee.appspot.com",
+    messagingSenderId: "412885644349"
   };
   firebase.initializeApp(config);
   
-  // Assign the reference to the database to a variable named 'database'
+  // Assign the reference to the database to a variable traind 'database'
   var database = firebase.database();
 
 // database.ref().push({})
 // databasse.ref().childadded("child_added",
-var name = "";
-var role = "";
-var pay;
-var start;
+var train = "";
+var destination = "";
+var first;
+var frequency;
 
-$("#add-employee").on("click", function(event) {
+$("#add-train").on("click", function(event) {
     event.preventDefault();
 
-    name = $("#employee-input").val().trim();
-    role = $("#role-input").val().trim();
-    pay = $("#pay-input").val().trim();
-    start = $("#start-input").val().trim();
+    train = $("#train-input").val().trim();
+    destination = $("#destination-input").val().trim();
+    first = $("#first-input").val().trim();
+    frequency = $("#frequency-input").val().trim();
 
     database.ref().push({
-        name : name,
-        role : role,
-        start : start,
-        pay: pay
+        train : train,
+        destination : destination,
+        frequency : frequency,
+        first: first
     });
 });
 
 database.ref().on("child_added", function(snapshot){
 
-    name = snapshot.val().name;
-    role = snapshot.val().role;
-    start = snapshot.val().start;
-    pay = snapshot.val().pay;
+    train = snapshot.val().train;
+    destination = snapshot.val().destination;
+    frequency = snapshot.val().frequency;
+    first = snapshot.val().first;
 
     var format = "YYYY-MM-DD";
-    var date = start;
+    var date = frequency;
     var convertedDate = moment(date, format);
 
     months = Math.abs(moment(convertedDate).diff(moment(), "months"));
     console.log("months "+months);
-    billed = months * pay;
+    billed = months * first;
 
-    // role = $("#role-input").val().trim();
-    // pay = $("#pay-input").val().trim();
-    // start = $("#start-input").val().trim();
-    console.log(name);
-    console.log(role);
-    console.log(start);
-    console.log(pay);
+    // destination = $("#destination-input").val().trim();
+    // first = $("#first-input").val().trim();
+    // frequency = $("#frequency-input").val().trim();
+    console.log(train);
+    console.log(destination);
+    console.log(frequency);
+    console.log(first);
 
     // var newRow = $("<tr>").append(
-    //     $("<td>").text(name),
-    //     $("<td>").text(role),
-    //     $("<td>").text(start),
+    //     $("<td>").text(train),
+    //     $("<td>").text(destination),
+    //     $("<td>").text(frequency),
     //     $("<td>").text(months),
-    //     $("<td>").text(pay),
+    //     $("<td>").text(first),
     //     $("<td>").text(billed)
     // );
 
 //IMPORTANT : TEMPLATE LITERAL    
 //template literal
-var newRow = `<tr><td>${name}</td><td>${role}</td><td>${start}</td><td>${months}</td><td>${pay}</td><td>${billed}</td>`;
+var newRow = `<tr><td>${train}</td><td>${destination}</td><td>${frequency}</td><td>${months}</td><td>${first}</td><td>${billed}</td>`;
 
     $("#table").append(newRow);
 
 
 
-    // snapshot.val().role,snapshot.val().start, snapshot.val().pay
+    // snapshot.val().destination,snapshot.val().frequency, snapshot.val().first
     // database.ref().push({
-    //     name : name,
-    //     role : role,
-    //     start : start,
-    //     pay: pay
+    //     train : train,
+    //     destination : destination,
+    //     frequency : frequency,
+    //     first: first
     // });
 });
